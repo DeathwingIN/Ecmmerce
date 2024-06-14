@@ -1,12 +1,15 @@
-import Header from "./components/shared/Header";
-import CatergoryCard from "./components/category/CatergoryCard";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Views from "../src/views/index.js"
 
 
 function App() {
     return (
         <div className={"App"}>
-            <Header/>
-            <CatergoryCard/>
+            <Router>
+                <Routes>
+                    <Route path={"/"} element={<Views/>}/>
+                </Routes>
+            </Router>
         </div>);
 }
 
