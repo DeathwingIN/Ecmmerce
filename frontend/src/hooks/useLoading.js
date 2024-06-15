@@ -1,5 +1,5 @@
-import {useState} from 'react';
 
+import { useState } from 'react';
 
 const useLoading = () => {
     const [loading, setLoading] = useState(false);
@@ -13,12 +13,11 @@ const useLoading = () => {
         } catch (error) {
             setLoading(false);
             throw error;
-
         }
+    };
 
-    }
 
-    return [loading, withLoading];
-}
+    return [loading, withLoading];  // Make sure this returns an array
+};
 
 export default useLoading;
