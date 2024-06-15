@@ -3,7 +3,7 @@ import Views from "../src/views/index.js"
 
 import {Provider} from "react-redux"
 import store from "../src/redux/store/index"
-
+import Header from "../src/components/shared/Header"
 
 function App() {
     return (
@@ -11,6 +11,7 @@ function App() {
 
             <Provider store={store}>
                 <Router>
+                    <Header/>
                     <Routes>
                         <Route path={"/"} element={<Views/>}/>
                     </Routes>

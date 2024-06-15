@@ -6,7 +6,6 @@ import {Route, Routes} from "react-router-dom"
 const Views = () => {
     return (
         <>
-            <Header/>
 
             <div className={'container my-5'}>
                 <Routes>
