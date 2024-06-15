@@ -1,0 +1,12 @@
+/* Ensure the card height is consistent */
+.product-card {
+    height: 100%; /* Ensures the card takes full height of the parent */
+}
+
+/* Limit the height of the description and handle overflow */
+.product-description {
+    max-height: 80px; /* Adjust this value as needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

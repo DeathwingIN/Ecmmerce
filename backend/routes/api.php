@@ -21,9 +21,5 @@ use App\Http\Controllers\API\ProductController;
 //});
 
 
- Route::get('/categories', [CategoryController::class, 'index']);
- Route::get('/categories/{id}', [CategoryController::class, 'show']);
- Route::post('/categories', [CategoryController::class, 'store']);
-
- Route::get('/products', [ProductController::class, 'index']);
-Route::get('/products/{id}', [ProductController::class, 'show']);
+Route::apiResource('categories', CategoryController::class);
+Route::apiResource('products', ProductController::class);
