@@ -1,4 +1,4 @@
-const {SAVE_CATEGORIES } = require("../constants/Catagory");
+import {SAVE_CATEGORIES }  from "../constants/Catagory";
 
 export const setCategories = (payload) => {
 
