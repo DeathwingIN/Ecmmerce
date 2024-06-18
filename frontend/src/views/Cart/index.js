@@ -4,8 +4,7 @@ import {useDocumentTitle} from '../../hooks/useDocumentTitle';
 
 
 const Cart = (props) => {
-    const {title} = props;
-    useDocumentTitle(title);
+
     return (
 
 

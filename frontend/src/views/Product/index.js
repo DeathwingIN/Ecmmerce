@@ -1,14 +1,14 @@
 import React from 'react';
 import {useDocumentTitle} from '../../hooks/useDocumentTitle';
 import {connect} from 'react-redux';
-import {setCurrentProduct} from '../../redux/actions';
+import {setCurrentProduct,addItem} from '../../redux/actions';
 import useLoading from '../../hooks/useLoading';
 import {useParams, useNavigate} from 'react-router-dom';
 import ProductRequest from '../../services/Requests/Product';
-import {useEffect} from 'react';
+import {useEffect, useState} from "react";
 
 const ProductDetails = props => {
-    const {currentProduct, setCurrentProduct} = props;
+    const {currentProduct, setCurrentProduct,items} = props;
     const [loading, withLoading] = useLoading();
     const {id} = useParams();
 
@@ -21,8 +21,24 @@ const ProductDetails = props => {
         }
     }
 
+    const [itemIsInCart, setItemIsInCart] = useState(false);
+
+    const handleAddItemToCart = () => {
+        addItem(currentProduct);
+        setItemIsInCart(true);
+    };
+
+    const handleCheckIfItemIsInCart = () => {
+        const item = items?.find(item => item?.id === currentProduct?.id);
+        if (item) {
+            setItemIsInCart(true);
+        }
+    };
+
+
     useEffect(() => {
         handleGetAProduct();
+        handleCheckIfItemIsInCart();
     }, [id]);
 
     return (
@@ -46,10 +62,10 @@ const ProductDetails = props => {
                                 <h4>{currentProduct?.price}</h4>
                                 <button
                                     className="btn btn-primary"
-                                    // disabled={itemIsInCart}
-                                    // onClick={handleAddItemToCart}
+                                    disabled={itemIsInCart}
+                                    onClick={handleAddItemToCart}
                                 >
-                                    {/*{itemIsInCart ? "Already in cart" : "Add to Cart"}*/}
+                                    {itemIsInCart ? "Already in cart" : "Add to Cart"}
                                 </button>
                             </div>
                         </div>
@@ -60,13 +76,16 @@ const ProductDetails = props => {
 }
 
 
-const mapStateToProps = ({product}) => {
+const mapStateToProps = ({product,cart}) => {
     const {currentProduct} = product;
-    return {currentProduct};
+    const {items} = cart;
+    return {currentProduct,items};
 };
 
+
 const mapDispatchToProps = {
-    setCurrentProduct
+    setCurrentProduct,
+    addItem,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);
