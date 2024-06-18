@@ -1,6 +1,8 @@
 import React from 'react';
 import {useDocumentTitle} from '../../hooks/useDocumentTitle';
-
+import {connect} from 'react-redux';
+import CartItem from '../../components/cart/item';
+import useLoading from '../../hooks/useLoading';
 
 
 const Cart = props => {
