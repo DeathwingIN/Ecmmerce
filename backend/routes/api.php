@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,11 @@ use App\Http\Controllers\API\ProductController;
 //    return $request->user();
 //});
 
+
+Route ::group(['prefix' => 'payment'], function () {
+    Route::post('/', [PaymentController::class, 'makePayment']);
+
+});
 
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('products', ProductController::class);
