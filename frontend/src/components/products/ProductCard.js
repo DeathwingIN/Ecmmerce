@@ -3,8 +3,30 @@ import PropTypes from 'prop-types';
 import {CategoryDefaultProps} from '../../data/CategoryDefaultProps';
 import './ProductCard.css'; // Import the CSS file
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {addItem} from "../../redux/actions/Cart";
+import {useEffect, useState} from "react";
 
-const ProductCard = ({product}) => {
+
+const ProductCard = ({ product = CategoryDefaultProps.products[0], addItem, items }) => {
+    const [itemIsInCart, setItemIsInCart] = useState(false);
+
+    const handleAddItemToCart = () => {
+        addItem(product);
+        setItemIsInCart(true);
+    };
+
+    const handleCheckIfItemIsInCart = () => {
+        const item = items?.find(item => item?.id === product?.id);
+        if (item) {
+            setItemIsInCart(true);
+        }
+    };
+
+    useEffect(() => {
+        handleCheckIfItemIsInCart();
+    }, []);
+
     return (
         <div className="card product-card h-100">
             <img
@@ -19,11 +41,10 @@ const ProductCard = ({product}) => {
                 <div className="d-grid gap-2">
                     <button
                         className="btn btn-primary"
-                        // onClick={handleAddItemToCart}
-                        // disabled={itemIsInCart}
+                        onClick={handleAddItemToCart}
+                        disabled={itemIsInCart}
                     >
-                        Add to Cart
-                        {/*{itemIsInCart ? "Already in cart" : "Add to Cart"}*/}
+                        {itemIsInCart ? "Already in cart" : "Add to Cart"}
                     </button>
                     <Link
                         className="btn btn-secondary"
@@ -38,11 +59,18 @@ const ProductCard = ({product}) => {
 };
 
 ProductCard.propTypes = {
-    product: PropTypes.object.isRequired
+    product: PropTypes.object.isRequired,
+    addItem: PropTypes.func.isRequired,
+    items: PropTypes.array.isRequired,
 };
 
-ProductCard.defaultProps = {
-    product: CategoryDefaultProps.products[0]
+const mapStateToProps = ({ cart }) => {
+    const { items } = cart;
+    return { items };
 };
 
-export default ProductCard;
+const mapDispatchToProps = {
+    addItem,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);
