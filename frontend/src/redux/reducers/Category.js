@@ -1,7 +1,8 @@
-const {SAVE_CATEGORIES } = require("../constants/Catagory");
+import {SAVE_CATEGORIES,SAVE_CATEGORY }  from "../constants/Catagory";
 
 const initState = {
     categories: [],
+    currentCategory: null,
 }
 
 const Category = (state = initState, action) => {
@@ -10,6 +11,12 @@ const Category = (state = initState, action) => {
             return {
                 ...state,
                 categories: action.payload
+            }
+
+        case 'SAVE_CATEGORY':
+            return {
+                ...state,
+                currentCategory: action.payload
             }
         default:
             return state

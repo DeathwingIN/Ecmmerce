@@ -7,24 +7,27 @@ import { CategoryDefaultProps } from '../../data/CategoryDefaultProps';
 const CategoryCard = ({ category, showMore }) => {
     return (
         <div className="category my-4">
-            <div className="d-flex justify-content-between align-items-center">
-                <h4>{category.name}</h4>
-                {showMore && (
+            <div className='d-flex justify-content-between align-items-center'>
+                <h4>{category?.name}</h4>
+                {
+                    showMore &&
                     <Link
-                        to={`/categories/${category.id}`}
-                        className="btn btn-primary btn-sm"
+                        to={`category/${category?.id}`}
                     >
-                        View More
+                        More
                     </Link>
-                )}
+                }
             </div>
             <div className="row">
-                {/* Map through the products array to render multiple ProductCard components */}
-                {category.products.map((product, index) => (
-                    <div className="col-md-3 mb-4" key={index}>
-                        <ProductCard product={product} />
-                    </div>
-                ))}
+                {
+                    category?.products?.length > 0
+                        ? category?.products?.map(product => (
+                            <div className="col-md-3" key={product?.id}>
+                                <ProductCard product={product}/>
+                            </div>
+                        ))
+                        : <h4>No Products Available</h4>
+                }
             </div>
         </div>
     );

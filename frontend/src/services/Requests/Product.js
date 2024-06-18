@@ -11,5 +11,11 @@ ProductRequest.getAllProducts = (params) => {
     });
 };
 
+ProductRequest.getAProduct = (id) => {
+    return fetch({
+        url: `${product}/${id}`,
+        method: "get"
+    });
+};
 
 export default ProductRequest;
